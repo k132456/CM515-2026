@@ -19,9 +19,19 @@ By the end of this class, you should be able to:
 Nearly all computational tools—command-line programs, R, Python, workflows on HPC systems—assume you understand how files are organized and referenced. These concepts are foundational for everything else we will do in this course.
 
 ## Week 1 Slides
-[Files_and_Folders](modules/wk_01_intro/SP26_CM515_FilesAndFolders.pptx)
+[Introduction](Week1_Introduction.pptx)  These are the slides that explain the format of the course, the expectations and what the various platforms do.
+
+[Files_and_Folders](SP26_CM515_FilesAndFolders.pptx)  These are the slides that explain how files and folders/directories are used.
+
 ## In Class Exercises
+[Files and Folders](FilesFolders_Updated_Python.ipynb)
 
 ## Homework Assignment
+Homework should be submitted on Canvas for Grading.  Include an AI statement.
+[Week 1 Homework](03_HomeworkAssignment_Python.ipynb)
 
-[Email the instructor](mailto:eliud.rivashernandez@colostate.edu)
+## Additional Resources
+[Simple Guide to Python](Simple_Guide_to_Python.docx)
+
+
+[Email Eliud for Help](mailto:eliud.rivashernandez@colostate.edu)
