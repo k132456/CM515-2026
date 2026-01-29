@@ -8,10 +8,10 @@ Welcome to CM 515! Course materials will be made available here and on Canvas. U
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | 0 | Fri Jan 16 | [Software Installation Party](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_00_setup) | All | All |
 | 1 | Wed Jan 21 | [Intro/Syllabus/Overview, Files/Folders/Organization](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_01_intro) | N/A | Carol, Eliud  |
-| 2 | Mon Jan 26 | [Command Line/BASH](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_02_command_line) | BASH | Charli, Shady, Eliud |
-| 2 | Wed Jan 28 | [Command Line/BASH/Jupyter Notebooks](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_02_command_line) | BASH/Python | Charli, Shady, Eliud |
-| 3 | Mon Feb 2 | [GitHub - How and Why Part I](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_03_github) | Python | Dmitri, Brian, Kira |
-| 3 | Wed Feb 4 | [GitHub - How and Why Part II](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_03_github) | Python/Markdown | Dmitri, Brian, Kira |
+| 2 | Mon Jan 26 | [Command Line/BASH](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_02_command_line) | BASH | Charli, Shady |
+| 2 | Wed Jan 28 | [Command Line/BASH/Jupyter Notebooks](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_02_command_line) | BASH/Python | Charli, Shady |
+| 3 | Mon Feb 2 | [GitHub - How and Why Part I](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_03_github) | Python | Dmitri,  Kira |
+| 3 | Wed Feb 4 | [GitHub - How and Why Part II](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_03_github) | Python/Markdown | Dmitri, Kira |
 | 4 | Mon Feb 9 | [Programming Basics](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_04_programming_basics) | Python | Kira, Alex  |
 | 4 | Wed Feb 11 | [Programming Basics](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_04_programming_basics) | Python | Kira, Alex |
 | 5 | Mon Feb 16 | [Functions, Loops, Conditionals](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_05_programming_2) | Python | Alex |
@@ -27,8 +27,8 @@ Welcome to CM 515! Course materials will be made available here and on Canvas. U
 | 9 | Wed Mar 25 | [Intro to Machine Learning](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_09_machine_learning) | Python | Pegah |
 | 10 | Mon Mar 30 | [Image Analysis](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_10_image_analysis) | CellProfiler/Python/WormLib | Rosi, Kelsey |
 | 10 | Wed Apr 1 | [Image Analysis](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_10_image_analysis) | CellProfiler/Python/WormLib | Rosi, Kelsey |
-| 11 | Mon Apr 6 | [R/R Studio](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_11_r) | R/R Studio | Owen?, Carol, Melea |
-| 11 | Wed Apr 8 | [R/R Studio](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_11_r) | R/R Studio | Owen?, Carol, Melea |
+| 11 | Mon Apr 6 | [R/R Studio](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_11_r) | R/R Studio | Owen,  Melea |
+| 11 | Wed Apr 8 | [R/R Studio](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_11_r) | R/R Studio | Owen, Melea |
 | 12 | Mon Apr 13 | [TidyR and Pipes](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_12_tidyr) | R/R Studio | Shady |
 | 12 | Wed Apr 15 | [TidyR and Pipes](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_12_tidyr) | R/R Studio | Shady |
 | 13 | Mon Apr 20 | [ggplot & Data Visualization](https://github.com/Colorado-State-University-CMB/CM515-2026/tree/main/modules/wk_13_ggplot) | R/R Studio | Alex |
