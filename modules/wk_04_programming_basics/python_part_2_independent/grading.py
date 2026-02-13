@@ -38,6 +38,7 @@ class TestLists(unittest.TestCase):
         self.assertEqual(assignment2.remove_from_list(a, 4), [1, 2, 3, 5, 6])
 
         b = ["dog", "cat", "fish", "snake", "bird", "alligator"]
+
         self.assertEqual(assignment2.remove_from_list(b, "alligator"), ["dog", "cat", "fish", "snake", "bird"])
 
         c = ["boat", "car", "car", "plane", "car", "train"]

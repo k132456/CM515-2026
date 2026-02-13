@@ -1,0 +1,4 @@
+purple blue yellow orange
+yellow pink purple orange
+blue purple purple white
+red pink purple blue
