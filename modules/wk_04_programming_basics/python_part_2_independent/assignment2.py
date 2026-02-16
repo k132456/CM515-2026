@@ -126,26 +126,17 @@ def create_data_file(column_names_list, column1_data, column2_data, column3_data
 
     ### YOUR CODE BELOW HERE ###
 
-    #import csv
+    import csv
+    rows = []
+    for x in range(len(column1_data)):
+        row = [column1_data[x], column2_data[x], column3_data[x]]
+        rows.append (row)
 
-    #data = [ {}]
-    
-    #with open("data.csv", "w", newline='') as csvfile:
-        #fieldnames = [column_names_list]
-        #writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        #writer.writeheader()
-        #writer.writerows(data)
-       
- #["name", "age", "height_in_ft"],
-        #["jerry", 82, 6],
-        #["tom", 39, 7],
-        #["tara", 47, 5],
-        #["lucy", 62, 5]]
-
-#listA = ["name", "age", "height_in_ft"]
-#listB = ["jerry", "tom", "tara", "lucy"]
-#listC = [82, 39, 47, 62]
-#listD = [6, 7, 5, 5]
+    with open("data.csv", "w", newline= "") as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(column_names_list)
+        csvwriter.writerows(rows)
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     ### YOUR CODE ABOVE HERE ###
 
@@ -154,7 +145,23 @@ def create_data_file(column_names_list, column1_data, column2_data, column3_data
 def filter_data():
 
     ### YOUR CODE BELOW HERE ###
+    # Source - https://stackoverflow.com/a/25687769
+# Posted by Burhan Khalid
+# Retrieved 2026-02-16, License - CC BY-SA 3.0
 
+#    import csv
+
+#    with open("file2.csv", "r") as i, open("tav.csv", "w") as o:
+#        r = csv.reader(i, delimiter='\t')
+#        w = csv.writer(o, delimiter='\t')
+#        for row in r:
+#            if row[3] == "Tav":
+#            w.write(row)
+
+
+    
+    
+    
     print("\nReplace this with your code!\n")
 
     ### YOUR CODE ABOVE HERE ###
@@ -183,3 +190,13 @@ def filter_data():
 #get_protein_seq(my_codon_list)
 
 #count_word_in_file("C:/Users/kmark/Documents/GitHub/CM515-2026/modules/wk_04_programming_basics/python_part_2_independent/colors.txt", "purple")
+
+
+import csv
+
+with open("file2.csv", "r") as file, open("tav.csv", "w", newline= "") as newfile:
+    file2File = csv.reader(file, delimiter='\t')
+    tavFile = csv.writer(newfile, delimiter='\t')
+    for row in file2File:
+        if row[3] == "Tav":
+            newfile.writerow(row)
