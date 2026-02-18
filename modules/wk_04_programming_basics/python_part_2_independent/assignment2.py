@@ -36,19 +36,7 @@ def remove_from_list(input_list, item):
 
     input_list = [element for element in input_list if element != item]
 
-    #for element in input_list:
-        #input_list.remove(item)
     
-    
-    #for numbers in range(len(input_list)):
-        #input_list.remove(item)
-
-
-    #while x < 7:
-    #print(x)
-    #x = x + 1
-    #print(x)
-
     ### YOUR CODE ABOVE HERE ###
 
     return input_list
@@ -59,16 +47,15 @@ def check_if_b_grade(grade):
 
     ### YOUR CODE BELOW HERE ###
 
-    if 80 < grade < 90:
-        print(True)
+    if 80 <= grade < 90:
+        is_b_grade = True
     else:
-        print(False)
+        is_b_grade = False
     
 
     ### YOUR CODE ABOVE HERE ###
 
-    #I do not understand the return part of defining functions (def); if i comment this out or delete the 'is_b_grade' after return, the code executre properly, but with the is_b_grade still in there it fails
-    #return is_b_grade
+    return is_b_grade
 
 
 # This function takes a list of RNA codons, and uses a dictionary to return a list of the amino acid translations. If any codon is invalid (aka, not in the dictionary), return an empty list.
@@ -86,16 +73,18 @@ def get_protein_seq(list_of_codons):
     ### YOUR CODE BELOW HERE ###
 
     output_list = []
-    for x in list_of_codons:
-        codon_dict.get(x)
-        output_list.append(x)
+    for keys in list_of_codons:
+        if keys in codon_dict:
+            x = codon_dict.get(keys)
+            output_list = output_list + [x]
+        
+    for keys in list_of_codons:    
+        if keys not in codon_dict:
+            output_list.clear()
+  
+    #print(output_list)
     
-    print(output_list)
-    
-
-
     ### YOUR CODE ABOVE HERE ###
-    
     return output_list
 
 
@@ -106,14 +95,18 @@ def count_word_in_file(file_path, word_of_interest):
 
 
     word_count = 0
+    words = []
     with open(file_path, "r") as file:
         for line in file:
-            words = line.split()
-            for each_word in words:
-                if(each_word == word_of_interest):
-                    word_count = word_count + 1
-    print(word_of_interest, "appears", word_count, "times.")
+            words = words + line.split()
+        words_lower = list(map(str.lower, words))
+        word_of_interest_lower = word_of_interest.lower()
+        for each_word in words_lower:
+            if word_of_interest_lower in each_word:
+                word_count = word_count + 1
 
+    #print(words)
+    #print(word_of_interest, "appears", word_count, "times.")
 
 
     ### YOUR CODE ABOVE HERE ###
@@ -136,7 +129,7 @@ def create_data_file(column_names_list, column1_data, column2_data, column3_data
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(column_names_list)
         csvwriter.writerows(rows)
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     ### YOUR CODE ABOVE HERE ###
 
@@ -145,24 +138,38 @@ def create_data_file(column_names_list, column1_data, column2_data, column3_data
 def filter_data():
 
     ### YOUR CODE BELOW HERE ###
-    # Source - https://stackoverflow.com/a/25687769
-# Posted by Burhan Khalid
-# Retrieved 2026-02-16, License - CC BY-SA 3.0
-
-#    import csv
-
-#    with open("file2.csv", "r") as i, open("tav.csv", "w") as o:
-#        r = csv.reader(i, delimiter='\t')
-#        w = csv.writer(o, delimiter='\t')
-#        for row in r:
-#            if row[3] == "Tav":
-#            w.write(row)
+   
+    import csv
 
 
-    
-    
-    
-    print("\nReplace this with your code!\n")
+    with open ("file2.csv", "r", newline = "") as file2:
+        reader = csv.reader(file2)
+        file2aslist = list(reader)
+
+    tavlistoflists = []
+
+    for rows in file2aslist:
+        if "Tav" in rows:
+            tavlistoflists = tavlistoflists + [rows]
+
+    andrelistoflists = []
+
+    for rows in file2aslist:
+        if "Andre" in rows:
+            andrelistoflists = andrelistoflists + [rows]
+
+
+    tavlistoflists = [file2aslist[0]] + tavlistoflists
+    andrelistoflists = [file2aslist[0]] + andrelistoflists
+
+
+    with open("tav.csv", "w", newline= "") as tavcsvfile:
+        csvwriter = csv.writer(tavcsvfile)
+        csvwriter.writerows(tavlistoflists)
+
+    with open("andre.csv", "w", newline= "") as andrecsvfile:
+        csvwriter = csv.writer(andrecsvfile)
+        csvwriter.writerows(andrelistoflists)
 
     ### YOUR CODE ABOVE HERE ###
 
@@ -186,17 +193,14 @@ def filter_data():
 #check_if_b_grade(82)
 #check_if_b_grade(71)
 
-#my_codon_list = ["UUU", "UUC", "UUA"]
+#my_codon_list = ["UUU", "UUC", "J"]
+#my_codon_list = ["AMU", "GAU", "CGA", "UCG", "UAG"]
 #get_protein_seq(my_codon_list)
 
+
+
+
 #count_word_in_file("C:/Users/kmark/Documents/GitHub/CM515-2026/modules/wk_04_programming_basics/python_part_2_independent/colors.txt", "purple")
+#count_word_in_file("C:/Users/kmark/Documents/GitHub/CM515-2026/modules/wk_04_programming_basics/python_part_2_independent/file1.txt", "and")
 
 
-import csv
-
-with open("file2.csv", "r") as file, open("tav.csv", "w", newline= "") as newfile:
-    file2File = csv.reader(file, delimiter='\t')
-    tavFile = csv.writer(newfile, delimiter='\t')
-    for row in file2File:
-        if row[3] == "Tav":
-            newfile.writerow(row)
