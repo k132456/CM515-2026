@@ -22,7 +22,11 @@ def check_equivalence(seq_1, seq_2):
 
     ### YOUR CODE BELOW HERE ###
 
-    print("\nReplace this with your code!\n")
+    #print(seq_1 == seq_2)
+    if seq_1 == seq_2:
+        print(True)
+    elif seq_1 != seq_2:
+        print(False)
 
     ### YOUR CODE ABOVE HERE ###
 
@@ -32,11 +36,31 @@ def get_variants(seq_1, seq_2):
 
     ### YOUR CODE BELOW HERE ###
 
-    print("\nReplace this with your code!\n")
+    variant_list = []
+    #seq_1_list = seq_1.split() #use split() method to separate a string of words by white space so each word is a separate element
+    #seq_2_list = seq_2.split()
+    seq_1_list = list(seq_1) # use list() method to separate a string so that every single character is a separate element
+    seq_2_list = list(seq_2)
+    #print(seq_1_list)
+    #print(seq_2_list)
+    if seq_1 != seq_2:
+        for x in range(len(seq_1_list)):
+            if seq_1_list[x] != seq_2_list[x]:
+                #diff_spot = seq_1_list.index(seq_1_list[x]) #this doesn't work
+                #print(diff_spot)
+                #variant_list.append(diff_spot) #doesn't work see line 49
+                variant_list.append(x)
+                #print(variant_list)
+    elif seq_1 == seq_2:
+        variant_list.clear()
+    
 
+        
+    
     ### YOUR CODE ABOVE HERE ###
 
-    return variant_list
+    #return variant_list
+    print(variant_list)
 
 # This function takes a string sequence and returns the type of sequence it is: DNA, RNA, protein, or unknown.
 # Note: Technically, there are some sequences that could match multiple types. You can ignore these edge cases for this exercise.
@@ -49,6 +73,10 @@ def get_seq_type(seq):
 
     ### YOUR CODE BELOW HERE ###
 
+    for x in dna_chars:
+        if x in seq:
+            seq_type = DNA
+    
     print("\nReplace this with your code!\n")
 
     ### YOUR CODE ABOVE HERE ###
@@ -102,3 +130,20 @@ def extract_fasta_headers(filepath):
 
 
 ### TEST YOUR CODE DOWN HERE (IF YOU WANT TO) ###
+
+#this_seq = "Woah!"
+#that_seq = "Woah!"
+#check_equivalence(this_seq, that_seq)
+
+
+
+#alphabet1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#def callalph(alpha):
+#    print(alpha[2])
+
+#callalph(alphabet1)
+
+#this_string_seq = "AAABAAAABAAAAAB"
+#that_string_seq = "AAAAAAAAAAAAAAA"
+#this_string_seq = "AAAAAAAAAAAAAAA"
+#get_variants(this_string_seq, that_string_seq)
