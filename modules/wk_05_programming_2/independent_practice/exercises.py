@@ -73,15 +73,35 @@ def get_seq_type(seq):
 
     ### YOUR CODE BELOW HERE ###
 
-    for x in dna_chars:
-        if x in seq:
-            seq_type = DNA
+    #iterate through chars lists and if items in lists are in seq then seq type = DNA, RNA, etc.
+    # if string contains only A, G, C, and/or T, and no other chars = DNA
+    # if string contains only AGC and/or U, and no other chars = RNA
+    # if string contains AGC (no T or U) and no other chars = 
     
-    print("\nReplace this with your code!\n")
+    #for x in range(len(dna_chars)):
+    #    if dna_chars[x] in seq:
+    #        seq_type = "DNA"
+
+
+
+    #for x in dna_chars:
+    #    if x in seq:
+    #        seq_type = "DNA"
+
+    #for y in rna_chars:
+    #    if y in seq:
+    #        seq_type = "RNA"
+
+    #for z in aa_chars:
+    #    if z in seq:
+    #        seq_type = protein
+    
+    #print("\nReplace this with your code!\n")
 
     ### YOUR CODE ABOVE HERE ###
 
-    return seq_type
+    #print(seq_type)
+    #return seq_type
 
 # This function has been written for you. You may use it in type_of_point_mutation() if you want to!
 def split_rna_to_codons(rna_seq):
@@ -147,3 +167,6 @@ def extract_fasta_headers(filepath):
 #that_string_seq = "AAAAAAAAAAAAAAA"
 #this_string_seq = "AAAAAAAAAAAAAAA"
 #get_variants(this_string_seq, that_string_seq)
+
+dna_string = "ATCGCTCGAGCTCGA"
+get_seq_type(dna_string)
