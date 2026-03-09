@@ -22,4 +22,8 @@ Write code in any subset of languages we've covered in class (Bash, Python, R) t
 * What outputs (figures/tables/statistics) a user can expect
 * Version numbers of any packages/tools you used
 
+## Project Suggestion 5: Explore a protein family
+
+Use protein prediction and analysis tools to explore and summarize information about a protein family of your choice. Propose a question or set of smaller questions about the selected protein family that you could answer with publicly available data from databases such as NCBI, Ensembl, UniProt, or PDB. Submit a writeup with brief background about what is known about the protein family, which questions you decided to investigate, what inspired those questions, and your methods and progress towards summarizing your findings. 
+
 ## More projects will be suggested by instructors as the semester continues
