@@ -6,7 +6,7 @@ Submission of a final project is worth 10% of the total course grade. Students s
 
 If none of the suggested projects listed below fit with what you would prefer to work on, you may propose your own project goals, scope, and submission criteria for approval.
 
-## Project Suggestion 2: Explore an unknown gene
+## Project Suggestion 2: Explore a gene of unknown function
 
 Select a gene of unknown function for a specific species. Using tools presented in class and available sequence data, reference genomes, and annotations, develop hypotheses for the possible function(s) of the selected gene (e.g. predicted structure, sequence homology, phylogenetic distribution, etc.). Submit all code and a brief writeup to summarize your findings and hypotheses. 
 
