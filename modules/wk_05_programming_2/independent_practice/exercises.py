@@ -39,8 +39,6 @@ def get_variants(seq_1, seq_2):
     ### YOUR CODE BELOW HERE ###
 
     variant_list = []
-    #seq_1_list = seq_1.split() #use split() method to separate a string of words by white space so each word is a separate element
-    #seq_2_list = seq_2.split()
     seq_1_list = list(seq_1) # use list() method to separate a string so that every single character is a separate element
     seq_2_list = list(seq_2)
     #print(seq_1_list)
@@ -61,8 +59,8 @@ def get_variants(seq_1, seq_2):
     
     ### YOUR CODE ABOVE HERE ###
 
-    #return variant_list
-    print(variant_list)
+    return variant_list
+    #print(variant_list)
 
 # This function takes a string sequence and returns the type of sequence it is: DNA, RNA, protein, or unknown.
 # Note: Technically, there are some sequences that could match multiple types. You can ignore these edge cases for this exercise.
@@ -74,30 +72,19 @@ def get_seq_type(seq):
     aa_chars = codon_dict.values()#.unique()
 
     ### YOUR CODE BELOW HERE ###
-    #use set() - see bookmarked page
     #asking: do all items in seq exist in set(dna_chars)
     seq_set = set(seq)
     
     dna_set = set(dna_chars)
     x = seq_set.issubset(dna_set)
-    #if x:
-        #seq_type = "This is a DNA sequence."
-        #print("This is DNA")
+
 
     rna_set = set(rna_chars)
     y = seq_set.issubset(rna_set)
-    #if y:
-        #seq_type = "This is an RNA sequence."
-        #print("This is DNA")
+
 
     aa_set = set(aa_chars)
     z = seq_set.issubset(aa_set)
-    #if z:
-        #seq_type = "This is an amino acid sequence."
-
-    #if not y or not x:
-        #seq_type = "This is an unknown sequence type."
-        #print("This is unknown")
 
     if x:
         seq_type = "DNA"
@@ -111,7 +98,6 @@ def get_seq_type(seq):
         seq_type = "unknown"
         #print("This is unknown")
 
-    #return z
     #print(seq_type)
     return seq_type
 
@@ -131,14 +117,14 @@ def type_of_point_mutation(seq_1, seq_2):
     #use function defined above to split string into codons.
     #For silent point mutations: if different codon in list: if keys(codons) equate to the same values(AA), return silent.
     #For missense mutation: if different codon in list: if different keys(codons) equate to different values(AAs), return missense.
-    #For nonsense mutation: if different codon in list: if different key(codon) (in either??) equates to value * (or is UAG, UAA, or UGA), return nonsense.
+    #For nonsense mutation: if different codon in list: if different key(codon) equates to value * (or is UAG, UAA, or UGA), return nonsense.
     #For no mutation (sequences are identical), return none.
     #Assume: 0 or 1 mutations, sequences are same length.
 
     seq_1_codon_list = split_rna_to_codons(seq_1)
     seq_2_codon_list = split_rna_to_codons(seq_2)
 
-    list_of_comparisons = []
+    #list_of_comparisons = []
 
 
     if seq_1 != seq_2:
@@ -170,40 +156,17 @@ def type_of_point_mutation(seq_1, seq_2):
 def list_files():
 
     ### YOUR CODE BELOW HERE ###
-    #Keep working on this one - how do I remove the "DirEntry", "<", and ">"????
 
     files_list = []
-    #path = 
-    #files_and_folders_list = os.listdir(path)
     for items in os.scandir():
         if items.is_file():
-            files_list.append(items)
+            files_list.append(items.name)
     
-    #files_list_as_string = str(files_list)
-    #print(type(files_list_as_string))
-
-    #list_within_string = []
-    #list_within_string.append(files_list_as_string)
-
-    #for elements in list_within_string:
-        #print(type(elements))
-    #    elements.replace('DirEntry ', '')
-    #    elements.replace('>', '')
-    
-    #char = '<DirEntry '
-    #for index, elements in enumerate(files_list):
-    #    files_list[index] = elements.replace(char, '')
-        #isFile = os.path.isfile(items)
-    
-    #char2 = '>'
-    #for index, elements in enumerate(files_list):
-    #    files_list[index] = elements.replace(char2, '')
-    
-    print(files_list)
+    #print(files_list)
 
     ### YOUR CODE ABOVE HERE ###
 
-    #return files_list
+    return files_list
 
 # This function returns a list of all the header lines (start with '>') in a given FASTA file.
 def extract_fasta_headers(filepath):
@@ -212,23 +175,17 @@ def extract_fasta_headers(filepath):
 
     header_list = []
     with open (filepath, "r") as fasta_file:
-        lines = fasta_file.readline()
-        print(lines)
-        #for elements in lines:
-        #    x = elements.startswith(">")
-        #    if x:
-        #        header_list.append(elements)
-
-
-
-            
-
+        #lines_list = fasta_file.readline()
+        for line in fasta_file:
+            if line.startswith(">"):
+                header_list.append(line.strip("\n"))
+    #print(header_list)
 
 
     ### YOUR CODE ABOVE HERE ###
     #print(header_list)
 
-    #return header_list
+    return header_list
 
 
 ### TEST YOUR CODE DOWN HERE (IF YOU WANT TO) ###
@@ -286,7 +243,7 @@ def extract_fasta_headers(filepath):
 #this_seq_8 = "UUGGAU"
 #type_of_point_mutation(this_seq_7, this_seq_8)
 
-list_files()
+#list_files()
 
 #file_path = "C:/Users/kmark/Documents/GitHub/CM515-2026/modules/wk_05_programming_2/independent_practice/fasta1.fa"
 #extract_fasta_headers(file_path)
