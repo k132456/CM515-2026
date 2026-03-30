@@ -114,17 +114,12 @@ def split_rna_to_codons(rna_seq):
 def type_of_point_mutation(seq_1, seq_2):
 
     ### YOUR CODE BELOW HERE ###
-    #use function defined above to split string into codons.
-    #For silent point mutations: if different codon in list: if keys(codons) equate to the same values(AA), return silent.
-    #For missense mutation: if different codon in list: if different keys(codons) equate to different values(AAs), return missense.
-    #For nonsense mutation: if different codon in list: if different key(codon) equates to value * (or is UAG, UAA, or UGA), return nonsense.
-    #For no mutation (sequences are identical), return none.
-    #Assume: 0 or 1 mutations, sequences are same length.
+
 
     seq_1_codon_list = split_rna_to_codons(seq_1)
     seq_2_codon_list = split_rna_to_codons(seq_2)
 
-    #list_of_comparisons = []
+
 
 
     if seq_1 != seq_2:
