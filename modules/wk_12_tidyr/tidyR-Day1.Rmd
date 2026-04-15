@@ -13,7 +13,7 @@ package_list <- c("dplyr", "readr", "tidyverse", "tidyr")
 
 for (pckg in package_list) {
   if (!requireNamespace(pckg, quietly = TRUE)) {
-    install.packages(cpkg, dependencies = TRUE)
+    install.packages(pckg, dependencies = TRUE)
   }
   library(pckg, character.only = TRUE)
 }
@@ -69,13 +69,14 @@ Great! We read it in! But what does this data look like? How did the authors for
 
 ```{r check body cond out}
 #how did R format the dataset?
-
+str(tortoise_body_condition)
+class(tortoise_body_condition)
 
 #what are the column names of the dataset?
-
+names(tortoise_body_condition)
 
 #what does the data look like?
-
+head(tortoise_body_condition)
 
 
 
@@ -110,8 +111,12 @@ In addition, let's make it look cleaner for us to use by:
 
 #fixing 1, 2, 3, and 4 (removing unwanted columns)
 #look at what we have
+names(tortoise_body_condition) #to run - ctrl + enter
 
 #change it
+tortoise_body_condition %>% #pipe |>
+  select(-c(...1, res, log_BCI, loc_sex_cohort)) %>% #-c is anticollect - removes columns
+  names()
 
 #did it do what we wanted?
 
@@ -119,22 +124,81 @@ In addition, let's make it look cleaner for us to use by:
 #look at our whole dataframe
 
 #how many rows belong to individual 1?
+length(which(tortoise_body_condition$ind == 1))
 
 #how many rows belong to each individual?
+tortoise_body_condition %>%
+  group_by(ind) %>%
+  summarise(numberTort = n())
+
+
+
+tortoise_body_condition %>% #pipe |>
+  select(-c(...1, res, log_BCI, loc_sex_cohort)) %>% #fixed probs 1-2 ; -c is anticollect - removes columns
+  group_by(ind) %>% #fix prob 5
+  View() #did it work?
 
 
 #fix 6 -- sorting by year_recode
 #not currently ordered:
+head(tortoise_body_condition)
+
+tortoise_body_condition%>%
+  select(-c(...1, res, log_BCI, loc_sex_cohort)) %>% #fixed probs 1-2 ; -c is anticollect - removes columns
+  group_by(ind) %>% #fix prob 5
+  arrange(year_recode, .by_group = TRUE) %>% #fix prob 6 -- will put year_recode in ascending order
+  head() #did it work?
 
 #did this fix it?
 
 #fix 7 -- rename columns
 #check current state. what do the abbreviations mean? --> have to get from paper
+names (tortoise_body_condition)
+
+tortoise_body_condition%>%
+  select(-c(...1, res, log_BCI, loc_sex_cohort)) %>% #fixed probs 1-2 ; -c is anticollect - removes columns
+  group_by(ind) %>% #fix prob 5
+  arrange(year_recode, .by_group = TRUE) %>% #fix prob 6 -- will put year_recode in ascending order
+  ungroup ()%>%
+  rename(
+    straight_carapace_length_mm = SCL,
+    body_mass_grams = BM,
+    body_condition_index= BCI,
+    individual = ind,
+    locality = loc
+  ) %>%
+  names() #did it work?
+
 #did this fix it?
 
-#fix 8 -- change order of columns
+#fix 8 -- change order of columns'
 #what is the current order?
 #did this fix it?
+
+tortoise_body_condition%>%
+  select(-c(...1, res, log_BCI, loc_sex_cohort)) %>% #fixed probs 1-2 ; -c is anticollect - removes columns
+  group_by(ind) %>% #fix prob 5
+  arrange(year_recode, .by_group = TRUE) %>% #fix prob 6 -- will put year_recode in ascending order
+  ungroup ()%>%
+  rename(
+    straight_carapace_length_mm = SCL,
+    body_mass_grams = BM,
+    body_condition_index= BCI,
+    individual = ind,
+    locality = loc
+  ) %>%
+  relocate(
+    individual,
+    year,
+    year_recode,
+    season,
+    locality,
+    sex,
+    body_mass_grams,
+    body_condition_index,
+    straight_carapace_length_mm
+  ) %>%
+  names()
 
 #fix 9 -- recode 'locality' column values
 #what are all options of loc?
