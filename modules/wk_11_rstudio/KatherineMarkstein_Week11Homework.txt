@@ -1,0 +1,87 @@
+Katherine Markstein Homework Week 11 Answers
+
+Question 1:
+  My field is molecular plant pathology.
+  
+  1.SingleCellSignalR
+  https://www.bioconductor.org/packages/release/bioc/html/SingleCellSignalR.html
+
+  2.DECIPHER
+  https://www.bioconductor.org/packages/release/bioc/html/DECIPHER.html
+  
+  SingleCellSignalR appears easier to learn than DECIPHER because it is a much smaller package.
+  
+Question 2:
+  A: This brings up a keyboard shorcut quick reference guide.
+  B: This allows you to scan through the previous commands you have entered.
+  C: This clears your console.
+  D: Pressing the ESC key allows you to exit out of an executed command on the console.
+  
+Question 3:
+  A:
+    users: character
+    logins: numeric
+  B:
+    The class of super_vector is character - 
+    this happens because you cannot convert letters (characters) into numbers/class numeric,
+    but you can convert numbers into characters/strings.
+    
+    To force super_vector into a numeric sub-class: super_vector_num <- as.numeric(super_vector)
+    Running this code gives the warning message "NAs introduced by coercion".
+    Because letter characters cannot be converted to numeric objects, the program could
+    only provide NA in the list where these characters existed instead of converting them.
+
+Question 4:
+  
+#Corrected - Heather's code
+languages <- c("English", "Spanish", "Japanese", "French")
+greetings <- c("hello", "hola", "ohio", "bonjour")
+partings <- c("bye", "adios", "mata", "salut")
+dictionary <- data.frame(languages, greetings, partings)
+dim(dictionary)
+dictionary
+
+
+Question 5:
+  To sync up my dataset to my current working directory:
+    Save data to desired folder (path = ~/GitHub/CM515-2026/modules/wk_11_rstudio/TempData)
+    In R Studio, either run the following in the console:  setwd("~/GitHub/CM515-2026/modules/wk_11_rstudio/TempData")
+    OR in the Files panel, navigate to the desired directory (directory where the data is stored),
+    select the 'More' dropdown, and select 'Set as working directory'.
+    
+  To import data using read.table:
+    read.table("temperature-anomaly.csv", sep = ",", header = TRUE)
+    
+  To save as an object:
+    temp_anom <- read.table("temperature-anomaly.csv", sep = ",", header = TRUE)
+  
+  
+  Exploratory Data Analysis:
+> dim(temp_anom)
+[1] 528   6
+> str(temp_anom)
+'data.frame':	528 obs. of  6 variables:
+ $ Entity     : chr  "Northern Hemisphere" "Northern Hemisphere" "Northern Hemisphere" "Northern Hemisphere" ...
+ $ Code       : chr  "OWID_NH" "OWID_NH" "OWID_NH" "OWID_NH" ...
+ $ Year       : int  1850 1851 1852 1853 1854 1855 1856 1857 1858 1859 ...
+ $ Average    : num  -0.0551 0.1616 0.1451 0.1354 0.2061 ...
+ $ Lower.bound: num  -0.25498 -0.04757 -0.07686 -0.08237 0.00994 ...
+ $ Upper.bound: num  0.145 0.371 0.367 0.353 0.402 ...
+> class(temp_anom)
+[1] "data.frame"
+> summary(temp_anom)
+    Entity              Code                Year         Average          Lower.bound        Upper.bound     
+ Length:528         Length:528         Min.   :1850   Min.   :-0.32068   Min.   :-0.56676   Min.   :-0.1346  
+ Class :character   Class :character   1st Qu.:1894   1st Qu.: 0.00661   1st Qu.:-0.16085   1st Qu.: 0.1626  
+ Mode  :character   Mode  :character   Median :1938   Median : 0.16754   Median : 0.08019   Median : 0.3017  
+                                       Mean   :1938   Mean   : 0.30425   Mean   : 0.19530   Mean   : 0.4132  
+                                       3rd Qu.:1981   3rd Qu.: 0.48421   3rd Qu.: 0.42460   3rd Qu.: 0.5728  
+                                       Max.   :2025   Max.   : 1.93753   Max.   : 1.88454   Max.   : 2.1970  
+                                       
+                                       
+    
+    
+    
+    Changing column type: I changed both Entity and Code from character to factor.
+      temp_anom$Entity <- as.factor(temp_anom$Entity)
+      temp_anom$Code <- as.factor(temp_anom$Code)

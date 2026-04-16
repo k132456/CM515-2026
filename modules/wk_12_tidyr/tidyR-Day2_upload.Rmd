@@ -18,6 +18,10 @@ play button --> run all code in a code chunk
 triangle + line button --> run all previous code chunks
 
 ```{r load data}
+tortoise_body_condition = read_csv("cleaned_tortoiseBC.csv")
+
+clutch_size = read_csv("cleaned_clutchSize.csv")
+
 
 ```
 
@@ -26,29 +30,45 @@ triangle + line button --> run all previous code chunks
 ```{r Questions of Interest 1}
 #### Does it seem easier to recapture male or female tortoises?
 
-#### Let's plan out what we want
-# Which dataset should we use? 
-# Which variables? 
-# What do we actually need to do?
-# What functions should we use?
+#### Let's plan out what we want NOTE this is just a simple example for practice - we would actually want to do rigorous statistics that account for things like number of individuals of each sex etc
+# Which dataset should we use? tortoise_body_condition - each row equals recapture event
+# Which variables? m/f of each individual
+# What do we actually need to do? count how many rows there are for each individual; parse data into m or f and then count
+# What functions should we use? group_by(sex), length?, count?, summarise?
+
+Sex_recapture = tortoise_body_condition %>%
+  group_by(sex) %>%
+  summarise(total_recapture = n())
+
 
 ```
 
 
 
 ```{r Questions of Interest 2}
-#### Do recaptures happen more often in spring or summer?
+#### Do recaptures happen more often in spring or summer? again basic example in real life would do more thorough stats
 
 #### Let's plan out what we want
-# Which dataset should we use? 
-# Which variables? 
-# What do we actually need to do?
-# What functions should we use?
+# Which dataset should we use? tortoise BC
+# Which variables? season
+# What do we actually need to do? group by season
+# What functions should we use? group_by, summarise
 
-# For one individual 
+season_recapture = tortoise_body_condition %>%
+  group_by(season) %>%
+  summarise(total_recapture = n())
 
-# For all
+# For one individual
+season_recapture_individual = tortoise_body_condition %>%
+  filter(individual == "1006") %>%
+  group_by(season) %>%
+  summarise(total_recapture = n())
 
+
+# For all, by individual
+season_recapture_all = tortoise_body_condition %>%
+  group_by(individual, season) %>%
+  summarise(total_recapture = n())
 ```
 
 
@@ -58,10 +78,49 @@ triangle + line button --> run all previous code chunks
 #### Between the springs of 2016 and 2017, did the turtles grow differently based on locality?
 
 #### Let's plan out what we want
-# Which dataset should we use? 
-# Which variables? 
-# What do we actually need to do?
+# Which dataset should we use? tortoise BC 
+# Which variables? season (spring), year (2016, 2017), locality (need all 3), body mass (all), body carapace length (all) (in this example we are only going to use carapace length and not mass as proxy for growth), subtraction of 2016 size from 2017 size
+# What do we actually need to do? simplify BC df: filter for only spring, and only 2016 & 2017; transform df from long to wide so you can do math on it by doing pivot_wider; do subtraction on carapace size; summarise(locality, growth)
 # What functions should we use?
+
+SLC = tortoise_body_condition %>%
+  filter(season == "Spring")%>%
+  filter(year %in% c(2016, 2017))%>%
+  group_by(individual, year, locality) %>%
+  summarise(
+    SLC = first(straight_carapace_length_mm),
+    .groups = "drop"
+  ) 
+
+SLC_wide = SLC%>%
+  pivot_wider(
+    names_from = year,
+    values_from = SLC
+  ) #now years are column names and SLC from that year is the value in that year
+
+
+
+SLC_wide = SLC_wide%>% #writing over same data frame instead of writing output into a new df
+  drop_na()%>% #removes rows with NA in either of the years (didn't get recaptured that yr)
+  rename(
+    yr_2016 = `2016`,
+    yr_2017 = `2017` #renames columns (personally i'd prefer SLC_2017)
+  )%>%
+  mutate(growth_2016_2017 = yr_2017 - yr_2016)
+
+
+SLC_wide %>%
+  group_by(locality) %>%
+  summarise(
+    avg_growth = mean(growth_2016_2017)
+  ) # didn't save this to a new object so will only output to the consol/source panels will not output a new object
+
+
+
+
+#check = tortoise_body_condition %>%
+#  filter(individual == "1054")%>%
+#  filter(year %in% c(2016, 2017))
 
 ```
 
