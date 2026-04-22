@@ -103,7 +103,7 @@ We're closer now but we didn't specify a geometry.
 #03b#
 ####
 iris %>%
-  ggplot(aes()#put in a value for x and y based on the available columns)
+  ggplot(aes(x=Sepal.Length, y=Sepal.Width))#put in a value for x and y based on the available columns)
 
 ```
 
@@ -156,7 +156,7 @@ Shapes can be strings or numbers.
 
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
-  geom_line()#try customizing your points)
+  geom_point(color = "pink3", shape = "triangle", alpha=0.5)#try customizing your points)
 
 ```
 
@@ -212,7 +212,7 @@ iris %>%
 
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, shape = Species)) +
-  geom_point() 
+  geom_point(shape = "triangle", color = "purple")#this overwrites the previous line 
 
 
 
@@ -239,7 +239,7 @@ mapping.
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, color=Sepal.Width > 3, shape=Species, size=Sepal.Length > 7)) +
   geom_point()
-
+#because we didn't specify which colors to use, R will choose. but we can specify which colors here (same for shape (and size?))
 
 ```
 
@@ -281,7 +281,7 @@ iris %>%
 ####
 iris %>%
   ggplot(aes(x = Species, y = Sepal.Length)) +
-  geom_point(size=3) 
+  geom_point(size=3) #problem with this graph - multiple points of the same length will get hidden
 ```
 
 Some of the points are overlapping. We can try using alpha here for
@@ -480,6 +480,9 @@ iris %>%
 
 #we could use a geom-density plot alternatively
 
+install.packages("ggridges")
+library(ggridges)
+
 iris %>%
   ggplot(aes(x=Sepal.Width, fill=Species))+
   geom_density(alpha=0.5)
@@ -511,9 +514,9 @@ Come up witb some labels!
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, color=Sepal.Width > 3)) +
   geom_point() +
-  labs(x = "", y = "", 
-       title = "", 
-       subtitle= "",
+  labs(x = "Sepal Length", y = "Sepal Width", 
+       title = "More Irises have a sepal width less than 3 cm.", 
+       subtitle= "Yes, that is correct.",
        color= "")
 
 #note- using "" for a value in labs is an easy trick if you want to have no label for an axis, title, or legend title
@@ -571,7 +574,7 @@ Look through the themes and ggthemes to find what you like best.
 ####
 
 #install.packages("ggthemes")
-library(ggthemes)
+#library(ggthemes)
 
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
@@ -625,7 +628,7 @@ iris %>%
        title = "Sepal Width vs. Sepal Length") +
   theme_stata() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  scale_color_brewer("Species", palette="Dark2")
+  scale_color_brewer("Species", palette="Dark2") #brewer uses color palletes R provides
 
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, color=Species)) +
@@ -634,7 +637,7 @@ iris %>%
        title = "Sepal Width vs. Sepal Length") +
   theme_stata() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  scale_color_manual(breaks=c("setosa", "versicolor", "virginica"), values=c("red", "yellow3", "blue"))
+  scale_color_manual(breaks=c("setosa", "versicolor", "virginica"), values=c("red", "yellow3", "blue")) #choose color pallete yourself - breaks are the categories of data you are differentiating, values are the colors you want to use
 
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, color=Species)) +
@@ -643,7 +646,7 @@ iris %>%
        title = "Sepal Width vs. Sepal Length") +
   theme_stata() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  scale_colour_colorblind()
+  scale_colour_colorblind()#provides a color blind friendly pallete
 ```
 
 ```{r, echo=F, message=F, warning=F}
@@ -704,6 +707,7 @@ iris %>%
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_color_brewer("Species", palette="Dark2")
 
+#to break up the x acis nicely
 iris %>%
   ggplot(aes(x = Petal.Length, y = Petal.Width, color=Species)) +
   geom_point() +
@@ -714,6 +718,7 @@ iris %>%
   scale_x_continuous (breaks=c(0, 1, 2, 3, 4, 5, 6, 7), limits = c(0,7)) +
   scale_y_continuous(limits=c(0,2.5))
 
+#to get just the versicolor and virginica data
 iris %>%
   ggplot(aes(x = Petal.Length, y = Petal.Width, color=Species)) +
   geom_point() +
@@ -724,6 +729,7 @@ iris %>%
   scale_x_continuous (name= "Petal Length (cm)", breaks=c(3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0),limits = c(3,7)) +
   scale_y_continuous(name="Petal Width (cm)", breaks = c(1.0, 1.25, 1.50, 1.75, 2.0, 2.25, 2.50), limits=c(1.0,2.5))
 
+#we can make breaks easier to code for by making them sequential
 iris %>%
   ggplot(aes(x = Petal.Length, y = Petal.Width, color=Species)) +
   geom_point() +
@@ -733,6 +739,7 @@ iris %>%
   scale_color_brewer("Species", palette="Dark2") +
   scale_x_continuous (name= "Petal Length (cm)", breaks=seq(3.0, 7.0, 2.0),limits = c(3,7)) +
   scale_y_continuous(name="Petal Width (cm)", breaks = seq(1.0, 2.5, 0.25), limits=c(1.0,2.5))
+#for breaks = seq(first number is starting point, second number is ending point, third number is interval between breaks)
 
 #you can also set breaks to null to remove tick marks all together
 iris %>%
@@ -780,7 +787,7 @@ iris %>%
 
 
 
-ggsave("021124_First_Graph.jpg")
+ggsave("021124_First_Graph.jpg", dpi=2000)#can customize a bunch here
 ```
 
 ------------------------------------------------------------------------

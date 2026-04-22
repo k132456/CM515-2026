@@ -1,0 +1,188 @@
+---
+title: "TidyR_homework"
+author: "YOUR NAME HERE"
+date: "2026-03-31"
+output: pdf_document
+---
+
+## TidyR Homework
+
+In this assignment, you will be asked to select a dataset of your choice, identify any 'untidy' characteristics, make it tidy, and do some exploratory analysis. 
+
+## Question 1 (1 point)
+
+Select a dataset from https://github.com/rfordatascience/tidytuesday/tree/main/data and import it into RStudio. 
+
+If your dataset references a paper, like the one we did in class, you can download it from its data repository. If it is only found on the tidy tuesday github, you may need to use one of these functions:
+tidytuesdayR::tt_load 
+readr::read_csv
+
+Show me the first *10 rows* of your data (1 point).
+
+```{r Question 1}
+#load a dataset
+
+# Get the Data
+
+#spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-01-21/spotify_songs.csv')
+
+# Or read in with tidytuesdayR package (https://github.com/dslc-io/tidytuesdayR)
+# PLEASE NOTE TO USE 2020 DATA YOU NEED TO UPDATE tidytuesdayR from GitHub
+
+# Either ISO-8601 date or year/week works!
+
+# Install via pak::pak("dslc-io/tidytuesdayR")
+
+#install.packages("tidytuesdayR")
+
+#tuesdata <- tidytuesdayR::tt_load('2020-01-21') 
+#tuesdata <- tidytuesdayR::tt_load(2020, week = 4)
+
+
+#spotify_songs <- tuesdata$spotify_songs
+
+#--------------
+#measles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-25/measles.csv')
+
+library("dplyr")
+library("readr")
+library("tidyverse")
+library("tidyr")
+library(datasets)
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+library(RColorBrewer)
+library(scales)
+
+athletes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-08-03/athletes.csv')
+
+#sort by athlete
+#filter out men in gender column because only interested in women's data
+#interested in number of medals won by each country, with team sports counting as one medal each - easy way to consolidate team sports to one row each?
+
+#output the first 10 rows of your data
+#head(spotify_songs, n = 10L)
+
+
+```
+
+## Question 2 (3 points)
+
+Identify at least 3 non-tidy characteristics of your data or things you would like to change in this dataset (1 point ea):
+
+* 1. I am only interested in the women's data, so I will remove row's with Men in the gender column. When looking at the data in excel I discovered that some type='Basketball' rows had NA in the gender column and Men/Women in the event column (and importantly, these are the only rows with gender listed in the event column). Because of this, I will also remove rows with "Men" in the event column and this will take care of that.
+
+* 2. I am interested in events won/podiumed by each country and there are some instances/rows that have 'NA' or '-' in both the country and abb columns, in which case we have no way of knowing what country they are from. I will remove these rows.
+
+* 3. Since I am interested in events won/podiumed by each country and not athlete name or grp_id, and team sports have multiple rows for each win/podium (for each athlete) (grp_id is # for different athletes on same team), I need to convert these many rows into one row so I am not counting an event multiple times. I will delete athlete column, and delete any rows with grp_id that is NOT NA or 1.
+
+* 4. Continuing from 2: There are many rows with abb but no country name. It would be good to somehow populate country name based on abb so that we have full country name for ease, plots, etc. but I don't know how to easily do this. #Could just change this in the top 10 df since it's only 10 to do manually.
+
+... [add more as needed]
+
+Show any code you used to identify these characteristics:
+
+```{r Q2}
+#I used the code above to import the data, and then the following code to export the data to a csv so I could explore it in Excel.
+write.csv(athletes, "athletes_og.csv")
+```
+
+## Question 3 (5 points)
+
+Fix each of your issues. Use comments to show where each of your issues listed above was fixed. Use pipes to connect fixing all of your issues together!
+
+```{r Q3}
+athletes_cleaned <- athletes%>%
+  filter_out(gender == "Men")%>%#solves 1
+  filter_out(event == "Men")%>%#solves1
+  filter_out(is.na(abb) | abb == "-" & is.na(country) | country == "-")%>%#solves2
+  select(-c(athlete))%>%#solves3
+  filter(is.na(grp_id) | grp_id != 1)%>%#solves3
+  mutate(medal = as.factor(medal))%>%
+  mutate(abb = as.factor(abb))
+
+write.csv(athletes_cleaned, "athletes_cleaned.csv")
+
+summary(athletes_cleaned)
+
+
+```
+
+## Question 4 (2 points)
+
+List a question you would like to answer using this dataset:
+For women's and mixed events, what country earned the most medals overall, and the most of each medal level? And summary stats regarding overall medals/country.
+
+
+## Question 5 (5 points)
+
+Using stats, plots, or both, answer your question. Make sure you output any stats or plots you create in this code chunk (i.e., that it shows up in the knitted document). 
+
+NOTE: you do not have to use a formal stats test if you are not familiar! Feel free to just use summary stats and/or figures to answer your question. 
+
+```{r Q5}
+total_medals_per_country <- athletes_cleaned %>%
+  group_by(abb)%>%
+  summarise(total_medals = n())
+
+gold_medals_per_country <- athletes_cleaned %>%
+  filter(medal == "Gold")%>%
+  group_by(abb)%>%
+  summarise(gold_medals = n())
+
+silver_medals_per_country <- athletes_cleaned%>%
+  filter(medal == "Silver")%>%
+  group_by(abb)%>%
+  summarise(silver_medals = n())
+
+bronze_medals_per_country <- athletes_cleaned%>%
+  filter(medal == "Bronze")%>%
+  group_by(abb)%>%
+  summarise(bronze_medals = n())
+
+medals_total_gold <- full_join(total_medals_per_country, gold_medals_per_country)
+medals_total_gold_silver <- full_join(medals_total_gold, silver_medals_per_country)
+all_medals <- full_join(medals_total_gold_silver, bronze_medals_per_country)
+
+#is there a better way to either (1) pipe all 4 of the above code blocks together, or (2) join all 4 tables in one line of code?
+
+#Plot # of medals per country for top 10 countries
+top_10_total_medals<- total_medals_per_country %>%
+  slice_max(total_medals, n = 10)%>%
+  arrange(desc(total_medals))%>%
+  mutate(abb = factor(abb, unique(abb)))
+
+# Source - https://stackoverflow.com/a/38663040
+# Posted by zach, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-04-21, License - CC BY-SA 3.0
+
+top_10_total_medals%>%
+  ggplot(aes(x = abb, y = total_medals)) +
+  geom_col()
+
+
+top_10_gold_medals<- gold_medals_per_country %>%
+  slice_max(gold_medals, n = 10)%>%
+  arrange(desc(gold_medals))%>%
+  mutate(abb = factor(abb, unique(abb)))
+
+top_10_gold_medals%>%
+  ggplot(aes(x = abb, y = gold_medals)) +
+  geom_col()
+
+#Do silver and bronze
+```
+
+Provide the answer (in words) to your question below:
+
+
+## Question 6 (4 points)
+
+Find two functions we haven't introduced you to that are a part of tidyR, dplyr, or other related tidyverse packages. Provide the function name (including the package it's from) and what it does.
+
+
+1. slice_max
+
+2. 
+

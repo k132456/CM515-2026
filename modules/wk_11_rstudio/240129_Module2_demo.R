@@ -223,6 +223,60 @@ add_5 <- function(num = 0) {
 add_5(5)
 add_5()
 
+
+convert_temperature <- function(temp, unit = "farenheit") {
+  if(unit == "farenheit") {
+    temp <- (temp - 32) * 5/9
+    return(temp)
+  }
+  if (unit == "celcius") {
+    temp <- (temp * 9/5) + 32
+    return(temp)
+  }
+}
+
+convert_temperature(32)
+convert_temperature(0, unit = "celcius")
+
+
+#writing functions practice:
+#write a function that takes as arguments: number of seeds planted, number germinated; and calculates germination %
+
+germ_percent <- function(num_planted, num_germ) {
+  return(num_germ/num_planted)
+}
+ 
+germ_percent(100, 67)
+
+
+#write a function that "# This function takes a numerical grade (e.g. 75.4), and returns True or False depending on whether that grade will earn a B (between 80 and 90)"
+is_it_a_b <- function(grade) {
+  if (grade >= 80 && grade < 90) {
+    return(TRUE)
+  }
+  else {
+    return(FALSE)
+  }
+}
+
+is_it_a_b(74)
+is_it_a_b(92)
+is_it_a_b(84)
+
+#write a function that "# This function determines whether two string sequences are equivalent: returns True if they are equivalent, and False if they are not."
+
+are_same <- function(vec1, vec2) {
+  return(identical(vec1, vec2))
+}
+
+vec_a <- c("moon", "sun", "earth", "mars")
+vec_b <- c("moon", "sun", "earth", "mars")
+vec_c <- c("shorts", "dress", "pants", "shirt")
+
+are_same(vec_a, vec_b)
+are_same(vec_b, vec_c)
+
+
 getwd()
 
 
